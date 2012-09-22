@@ -21,6 +21,7 @@ import static org.mockito.Mockito.verify;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URI;
 import java.net.URL;
 import java.util.Collections;
 import java.util.List;
@@ -118,6 +119,22 @@ public class DozerBeanMapperFactoryBeanTest extends AbstractDozerTest {
 
     public InputStream getInputStream() throws IOException {
       return null;
+    }
+
+    public boolean isReadable() {
+        return false;
+    }
+
+    public URI getURI() throws IOException {
+        return null;
+    }
+
+    public long contentLength() throws IOException {
+        return 0l;
+    }
+
+    public long lastModified() throws IOException {
+         return 0l;
     }
   }
 

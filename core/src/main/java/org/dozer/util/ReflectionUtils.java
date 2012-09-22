@@ -15,16 +15,16 @@
  */
 package org.dozer.util;
 
-import org.apache.commons.beanutils.PropertyUtils;
-import org.apache.commons.lang3.StringUtils;
-import org.dozer.MappingException;
-import org.dozer.fieldmap.HintContainer;
-import org.dozer.propertydescriptor.DeepHierarchyElement;
-
 import java.beans.IntrospectionException;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.*;
 import java.util.*;
+
+import org.apache.commons.lang3.StringUtils;
+import org.dozer.MappingException;
+import org.dozer.fieldmap.HintContainer;
+import org.dozer.propertydescriptor.DeepHierarchyElement;
+import org.springframework.beans.BeanUtils;
 
 /**
  * Internal class that provides a various reflection utilities(specific to Dozer requirements) used throughout the code
@@ -242,14 +242,14 @@ public final class ReflectionUtils {
     if (objectClass.isInterface()) {
       return getInterfacePropertyDescriptors(objectClass);
     } else {
-      return PropertyUtils.getPropertyDescriptors(objectClass);
+      return BeanUtils.getPropertyDescriptors(objectClass);
     }
   }
 
   static PropertyDescriptor[] getInterfacePropertyDescriptors(Class<?> interfaceClass) {
     List<PropertyDescriptor> propDescriptors = new ArrayList<PropertyDescriptor>();
     // Add prop descriptors for interface passed in
-    propDescriptors.addAll(Arrays.asList(PropertyUtils.getPropertyDescriptors(interfaceClass)));
+    propDescriptors.addAll(Arrays.asList(BeanUtils.getPropertyDescriptors(interfaceClass)));
 
     // Look for interface inheritance. If super interfaces are found, recurse up the hierarchy tree and add prop
     // descriptors for each interface found.
